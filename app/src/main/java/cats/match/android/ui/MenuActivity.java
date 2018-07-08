@@ -67,13 +67,19 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    public void play(){}
+    public void play(){
 
-    public void highScores(){}
+        startActivity(GameActivity.buildIntentForGameActivity(this, 1));
+    }
+
+    public void highScores(){
+
+        startActivity(HighScoresActivity.buildIntentForHighScoresActivity(this));
+    }
 
     public void setupObservers() {
 
-        // Observe product data
+        // Observe photos data
         loadingViewModel.getObservablePhotos().observe(this, new Observer<List<Photo>>() {
             @Override
             public void onChanged(List<Photo> photos) {
