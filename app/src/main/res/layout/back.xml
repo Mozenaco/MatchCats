@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="cats.match.android.ui.LoadingActivity">
+    tools:context="cats.match.android.ui.MenuActivity">
 
     <android.support.v7.widget.CardView
         android:id="@+id/cardViewBack"

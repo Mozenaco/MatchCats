@@ -60,4 +60,10 @@ public class Photo {
     public void setFarm(String farm) {
         this.farm = farm;
     }
+
+    public String getUrlString(){
+
+        return "https://farm" + this.farm + ".staticflickr.com/" + this.server + "/" +
+                this.id + "_" + this.secret + "_q.jpg";
+    }
 }

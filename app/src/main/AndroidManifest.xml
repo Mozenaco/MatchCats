@@ -13,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppFullScreenTheme">
         <activity
-            android:name="cats.match.android.ui.LoadingActivity"
+            android:name="cats.match.android.ui.MenuActivity"
             android:configChanges="orientation"
             android:screenOrientation="portrait">
             <intent-filter>

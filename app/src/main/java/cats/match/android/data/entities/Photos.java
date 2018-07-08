@@ -16,7 +16,7 @@ public class Photos {
     @SerializedName("photo")
     List<Photo> photo;
 
-    public List<Photo> getResponse() {
+    public List<Photo> getPhotoList() {
         return photo;
 
     }

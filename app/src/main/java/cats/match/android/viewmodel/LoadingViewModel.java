@@ -3,17 +3,16 @@ package cats.match.android.viewmodel;
 import android.arch.lifecycle.MutableLiveData;
 import android.arch.lifecycle.ViewModel;
 import android.util.Log;
-
-import cats.match.android.data.entities.Photos;
+import java.util.List;
+import cats.match.android.data.entities.Photo;
 import cats.match.android.data.entities.ResponseEntity;
 import cats.match.android.data.remote.FlickrApi;
-import cats.match.android.data.remote.Service;
 import retrofit2.Call;
 import retrofit2.Callback;
 
 public class LoadingViewModel extends ViewModel {
 
-    private MutableLiveData<Photos> photos = new MutableLiveData<Photos>();
+    private MutableLiveData<List<Photo>> photos = new MutableLiveData<List<Photo>>();
 
     public void getPhotos() {
 
@@ -22,7 +21,7 @@ public class LoadingViewModel extends ViewModel {
             @Override
             public void onResponse(Call<ResponseEntity> call, retrofit2.Response<ResponseEntity> response) {
                 Log.d("Success", "Success");
-                downloadAll(response.body().getPhotos());
+                photos.postValue(response.body().getPhotos().getPhotoList());
             }
 
             @Override
@@ -32,10 +31,9 @@ public class LoadingViewModel extends ViewModel {
 
             }
         });
-
     }
 
-    public void downloadAll(Photos photos){
-
+    public MutableLiveData<List<Photo>> getObservablePhotos() {
+        return photos;
     }
 }

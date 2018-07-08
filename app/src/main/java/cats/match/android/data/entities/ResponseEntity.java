@@ -14,9 +14,6 @@ public class ResponseEntity {
     @SerializedName("photos")
     Photos photos;
 
-    @SerializedName("perpage")
-    int perpage;
-
     public Photos getPhotos() {
         return photos;
     }
@@ -25,11 +22,4 @@ public class ResponseEntity {
         this.photos = photos;
     }
 
-    public int getPerpage() {
-        return perpage;
-    }
-
-    public void setPerpage(int perpage) {
-        this.perpage = perpage;
-    }
 }
