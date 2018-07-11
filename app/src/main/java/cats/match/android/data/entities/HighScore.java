@@ -1,6 +1,8 @@
 package cats.match.android.data.entities;
 
-public class HighScore {
+import android.support.annotation.NonNull;
+
+public class HighScore implements Comparable{
 
     String Name;
     int Score;
@@ -24,5 +26,11 @@ public class HighScore {
 
     public void setScore(int score) {
         Score = score;
+    }
+
+    @Override
+    public int compareTo(@NonNull Object object) {
+
+        return(((HighScore) object).Score - Score);
     }
 }

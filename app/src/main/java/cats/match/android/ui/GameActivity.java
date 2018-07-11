@@ -11,7 +11,6 @@ public class GameActivity extends AppCompatActivity {
 
     int numberOfPlayers;
 
-
     static String EXTRA_NUM_PLAYERS = "numberOfPlayers";
 
     public static Intent buildIntentForGameActivity(Context context, int numberOfPlayers) {

@@ -54,7 +54,6 @@ public class MenuActivity extends AppCompatActivity {
         //getData();
     }
 
-
     public void setupView() {
 
         btPlay.setOnClickListener(new View.OnClickListener() {

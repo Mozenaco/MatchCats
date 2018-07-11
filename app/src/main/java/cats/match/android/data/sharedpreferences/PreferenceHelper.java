@@ -8,6 +8,8 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import cats.match.android.data.entities.HighScore;
@@ -35,15 +37,15 @@ public class PreferenceHelper {
         this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public int getNumOfPlayers(@NonNull Context context) {
+    public int getNumOfPlayers() {
         return sharedPreferences.getInt(NUM_OF_PLAYERS, 1);
     }
 
-    public void setNumOfPlayers(@NonNull Context context, int value) {
+    public void setNumOfPlayers(int value) {
         sharedPreferences.edit().putInt(NUM_OF_PLAYERS, value).apply();
     }
 
-    public String getNamePlayerOne(@NonNull Context context) {
+    public String getNamePlayerOne() {
         return sharedPreferences.getString(NAME_PLAYER_ONE, "");
     }
 
@@ -51,30 +53,44 @@ public class PreferenceHelper {
         sharedPreferences.edit().putString(NAME_PLAYER_ONE, value).apply();
     }
 
-    public String getNamePlayerTwo(@NonNull Context context) {
+    public String getNamePlayerTwo() {
         return sharedPreferences.getString(NAME_PLAYER_TWO, "");
     }
 
-    public void setNamePlayerTwo(@NonNull Context context, String value) {
+    public void setNamePlayerTwo(String value) {
         sharedPreferences.edit().putString(NAME_PLAYER_TWO, value).apply();
     }
 
-    public List<HighScore> getHighScores(@NonNull Context context) {
-
-        //Gson gson = new Gson();
-        //String json = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(HIGHSCORES, "");
-        //return highScore = gson.fromJson(json, HighScore.class);
+    public List<HighScore> getHighScores() {
 
         String connectionsJSONString = sharedPreferences.getString(HIGHSCORES, null);
-        Type type = new TypeToken< List < HighScore >>() {}.getType();
-        List <HighScore> highScores = new Gson().fromJson(connectionsJSONString, type);
+        Type type = new TypeToken<List<HighScore>>() {}.getType();
+        List<HighScore> highScores = new Gson().fromJson(connectionsJSONString, type);
+
+        if (highScores == null) {
+            highScores = new ArrayList<>();
+        }
+        Collections.sort(highScores);//Sort the highscores
         return highScores;
     }
 
-    public void setHighScores(@NonNull Context context, List<HighScore> highScores) {
+    public void setHighScores(List<HighScore> highScores) {
+
+        List<HighScore> list = getHighScores();
+        list.addAll(highScores);
 
         Gson gson = new Gson();
-        String json = gson.toJson(highScores);
+        String json = gson.toJson(list);
+        sharedPreferences.edit().putString(HIGHSCORES, json).apply();
+    }
+
+    public void setHighScores(HighScore highScore) {
+
+        List<HighScore> list = getHighScores();
+        list.add(highScore);
+
+        Gson gson = new Gson();
+        String json = gson.toJson(list);
         sharedPreferences.edit().putString(HIGHSCORES, json).apply();
     }
 }
