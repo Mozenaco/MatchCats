@@ -49,7 +49,7 @@ public class MenuActivity extends AppCompatActivity {
         setupView();
         setupObservers();
 
-        app.builder().preferenceModule(new PreferenceModule()).build().inject(this);
+        app.builder().preferenceModule(new PreferenceModule(this)).build().inject(this);
 
         //getData();
     }

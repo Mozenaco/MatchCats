@@ -19,7 +19,7 @@ public class GameApplication extends Application {
     private AppComponent createComponent() {
         return DaggerAppComponent
                 .builder()
-                .preferenceModule(new PreferenceModule())
+                .preferenceModule(new PreferenceModule(this))
                 .build();
     }
 }

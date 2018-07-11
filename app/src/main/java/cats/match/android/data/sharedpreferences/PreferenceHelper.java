@@ -1,6 +1,7 @@
 package cats.match.android.data.sharedpreferences;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.support.annotation.NonNull;
 
 import com.google.gson.Gson;
@@ -15,50 +16,47 @@ public class PreferenceHelper {
 
     private static PreferenceHelper instance;
 
+    private SharedPreferences sharedPreferences;
+
     private static final String PREFS_NAME = "default_preferences";
     private static final String NUM_OF_PLAYERS = "num_of_players";
     private static final String NAME_PLAYER_ONE = "name_player_one";
     private static final String NAME_PLAYER_TWO = "name_player_two";
     private static final String HIGHSCORES = "highscores";
 
-    public synchronized static PreferenceHelper getInstance() {
+    public synchronized static PreferenceHelper getInstance(Context context) {
         if (instance == null) {
-            instance = new PreferenceHelper();
+            instance = new PreferenceHelper(context);
         }
         return instance;
     }
 
-    private PreferenceHelper() {
+    private PreferenceHelper(Context context) {
+        this.sharedPreferences = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
     public int getNumOfPlayers(@NonNull Context context) {
-        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .getInt(NUM_OF_PLAYERS, 1);
+        return sharedPreferences.getInt(NUM_OF_PLAYERS, 1);
     }
 
     public void setNumOfPlayers(@NonNull Context context, int value) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit().putInt(NUM_OF_PLAYERS, value).apply();
+        sharedPreferences.edit().putInt(NUM_OF_PLAYERS, value).apply();
     }
 
     public String getNamePlayerOne(@NonNull Context context) {
-        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .getString(NAME_PLAYER_ONE, "");
+        return sharedPreferences.getString(NAME_PLAYER_ONE, "");
     }
 
-    public void setNamePlayerOne(@NonNull Context context, String value) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit().putString(NAME_PLAYER_ONE, value).apply();
+    public void setNamePlayerOne(String value) {
+        sharedPreferences.edit().putString(NAME_PLAYER_ONE, value).apply();
     }
 
     public String getNamePlayerTwo(@NonNull Context context) {
-        return context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .getString(NAME_PLAYER_TWO, "");
+        return sharedPreferences.getString(NAME_PLAYER_TWO, "");
     }
 
     public void setNamePlayerTwo(@NonNull Context context, String value) {
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit().putString(NAME_PLAYER_TWO, value).apply();
+        sharedPreferences.edit().putString(NAME_PLAYER_TWO, value).apply();
     }
 
     public List<HighScore> getHighScores(@NonNull Context context) {
@@ -67,7 +65,7 @@ public class PreferenceHelper {
         //String json = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(HIGHSCORES, "");
         //return highScore = gson.fromJson(json, HighScore.class);
 
-        String connectionsJSONString = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE).getString(HIGHSCORES, null);
+        String connectionsJSONString = sharedPreferences.getString(HIGHSCORES, null);
         Type type = new TypeToken< List < HighScore >>() {}.getType();
         List <HighScore> highScores = new Gson().fromJson(connectionsJSONString, type);
         return highScores;
@@ -77,9 +75,6 @@ public class PreferenceHelper {
 
         Gson gson = new Gson();
         String json = gson.toJson(highScores);
-        context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE)
-                .edit()
-                .putString(HIGHSCORES, json)
-                .apply();
+        sharedPreferences.edit().putString(HIGHSCORES, json).apply();
     }
 }
