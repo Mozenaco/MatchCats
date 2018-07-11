@@ -1,8 +1,66 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@color/colorToobarBackground"
-    android:layout_height="80dp">
+    android:layout_height="80dp"
+    android:layout_margin="@dimen/margin_padding_small"
+    android:background="@drawable/toolbar_style">
 
+    <TextView
+        android:id="@+id/tvPlayerName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_padding_medium"
+        android:lines="1"
+        android:maxWidth="120dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="PlayerNameqeq1eqweqweqweqwe" />
+
+    <TextView
+        android:id="@+id/tvPlayerName2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:lines="1"
+        android:maxWidth="120dp"
+        android:layout_marginLeft="@dimen/margin_padding_medium"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlayerName"
+        tools:text="PlayerName" />
+
+    <TextView
+        android:id="@+id/tvPlayerScore"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/text_xlarge"
+        android:minWidth="80dp"
+        android:textAlignment="textEnd"
+        android:gravity="end"
+        android:layout_marginTop="@dimen/margin_padding_medium"
+        app:layout_constraintStart_toEndOf="@id/tvPlayerName"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="1000" />
+
+    <TextView
+        android:id="@+id/tvPts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toEndOf="@id/tvPlayerScore"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="@dimen/margin_padding_large"
+        android:text="@string/pts" />
+
+    <TextView
+        android:id="@+id/tvChronometer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textSize="@dimen/text_large"
+        android:layout_marginRight="@dimen/margin_padding_medium"
+        tools:text="0:00" />
 
 </android.support.constraint.ConstraintLayout>
