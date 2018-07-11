@@ -33,7 +33,7 @@ dependencies {
     //Recyclerview
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
-    //Retrofit &
+    //Retrofit
     implementation "com.squareup.retrofit2:retrofit:2.3.0"
     implementation "com.squareup.retrofit2:adapter-rxjava2:2.3.0"
     implementation "com.squareup.retrofit2:converter-gson:2.3.0"
@@ -51,4 +51,11 @@ dependencies {
 
     //Explosion Views Effects
     implementation 'tyrantgit:explosionfield:1.0.1'
+
+    //Gson
+    implementation 'com.google.code.gson:gson:2.7'
+
+    //Dagger2
+    implementation  'com.google.dagger:dagger:2.16'
+    annotationProcessor 'com.google.dagger:dagger-compiler:2.16'
 }

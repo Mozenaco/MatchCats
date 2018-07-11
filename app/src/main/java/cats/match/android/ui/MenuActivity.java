@@ -10,15 +10,20 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
+import cats.match.android.data.di.DaggerAppComponent;
+import cats.match.android.data.di.PreferenceModule;
 import cats.match.android.data.entities.Photo;
+import cats.match.android.data.sharedpreferences.PreferenceHelper;
 import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.LoadingViewModel;
 
 public class MenuActivity extends AppCompatActivity {
 
+    //Binding Views
     @BindView(R.id.btPlay)
     Button btPlay;
     @BindView(R.id.btHighscores)
@@ -30,6 +35,11 @@ public class MenuActivity extends AppCompatActivity {
 
     LoadingViewModel loadingViewModel = new LoadingViewModel();
 
+    @Inject
+    PreferenceHelper mPreferenceHelper;
+
+    DaggerAppComponent app;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,8 +48,10 @@ public class MenuActivity extends AppCompatActivity {
 
         setupView();
         setupObservers();
-        //getData();
 
+        app.builder().preferenceModule(new PreferenceModule()).build().inject(this);
+
+        //getData();
     }
 
 
