@@ -10,6 +10,7 @@ import android.text.InputType;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
@@ -21,10 +22,11 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cats.match.android.data.di.DaggerAppComponent;
 import cats.match.android.data.di.PreferenceModule;
+import cats.match.android.data.entities.Game;
 import cats.match.android.data.entities.Photo;
 import cats.match.android.data.sharedpreferences.PreferenceHelper;
 import cats.match.android.matchcats.R;
-import cats.match.android.viewmodel.LoadingViewModel;
+import cats.match.android.viewmodel.MenuViewModel;
 
 public class MenuActivity extends AppCompatActivity {
 
@@ -37,8 +39,10 @@ public class MenuActivity extends AppCompatActivity {
     Button btExit;
     @BindView(R.id.rgNumberOfPlayers)
     RadioGroup rgNumberOfPlayers;
+    @BindView(R.id.progressBar)
+    FrameLayout progressBar;
 
-    LoadingViewModel loadingViewModel = new LoadingViewModel();
+    MenuViewModel loadingViewModel = new MenuViewModel();
 
     @Inject
     PreferenceHelper mPreferenceHelper;
@@ -56,7 +60,7 @@ public class MenuActivity extends AppCompatActivity {
 
         app.builder().preferenceModule(new PreferenceModule(this)).build().inject(this);
 
-        //getData();
+        getData();
     }
 
     public void setupView() {
@@ -121,13 +125,15 @@ public class MenuActivity extends AppCompatActivity {
         loadingViewModel.getObservablePhotos().observe(this, new Observer<List<Photo>>() {
             @Override
             public void onChanged(List<Photo> photos) {
-                Toast.makeText(getApplicationContext(), photos.size() + " photos Loaded", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(), photos.size() + " photos Loaded", Toast.LENGTH_SHORT).show();
+                Game.getInstance().photos = photos;
+                progressBar.setVisibility(View.GONE);
             }
         });
     }
 
     public void getData() {
-
+        progressBar.setVisibility(View.VISIBLE);
         loadingViewModel.getPhotos();
     }
 

@@ -10,7 +10,7 @@ import cats.match.android.data.remote.FlickrApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 
-public class LoadingViewModel extends ViewModel {
+public class MenuViewModel extends ViewModel {
 
     private MutableLiveData<List<Photo>> photos = new MutableLiveData<List<Photo>>();
 

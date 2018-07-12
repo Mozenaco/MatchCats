@@ -13,25 +13,9 @@
         app:layout_constraintStart_toStartOf="parent"
         layout="@layout/toolbar"/>
 
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:layout_width="wrap_content"
-        android:id="@+id/easyFlipView1"
-        android:layout_height="wrap_content"
-        app:layout_constraintStart_toStartOf="parent"
+    <include
         app:layout_constraintTop_toTopOf="parent"
-        app:flipOnTouch="true"
-        app:flipEnabled="true"
-        app:flipDuration="400"
-        app:flipFrom="right"
-        app:flipType="horizontal">
-
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back"/>
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front"/>
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
+        app:layout_constraintStart_toStartOf="parent"
+        layout="@layout/game_mode_1"/>
 
 </LinearLayout>
