@@ -125,7 +125,6 @@ public class MenuActivity extends AppCompatActivity {
         loadingViewModel.getObservablePhotos().observe(this, new Observer<List<Photo>>() {
             @Override
             public void onChanged(List<Photo> photos) {
-                //Toast.makeText(getApplicationContext(), photos.size() + " photos Loaded", Toast.LENGTH_SHORT).show();
                 Game.getInstance().photos = photos;
                 progressBar.setVisibility(View.GONE);
             }

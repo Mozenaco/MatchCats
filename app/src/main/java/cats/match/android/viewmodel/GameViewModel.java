@@ -24,6 +24,7 @@ public class GameViewModel extends ViewModel {
 
     private MutableLiveData<ActionAfterFlip> actionAfterFlip = new MutableLiveData<ActionAfterFlip>();
     private MutableLiveData<Integer> playerOneScore = new MutableLiveData<Integer>();
+    private MutableLiveData<Boolean> levelEnded = new MutableLiveData<Boolean>();
 
     public GameViewModel(PreferenceHelper preferenceHelper){
         this.preferenceHelper = preferenceHelper;
@@ -65,12 +66,23 @@ public class GameViewModel extends ViewModel {
         firstOpenedView = null;
     }
 
+    public void checkEndGameLevel(){
+        if(Game.getInstance().currentImagesMatched == Game.getInstance().numImages){
+            levelEnded.postValue(true);
+            Game.getInstance().nextLevel();
+        }
+    }
+
     public MutableLiveData<ActionAfterFlip> getObservableActionAfterFlip() {
         return actionAfterFlip;
     }
 
     public MutableLiveData<Integer> getObservablePlayerOneScore() {
         return playerOneScore;
+    }
+
+    public MutableLiveData<Boolean> getObservableEndGameLevel() {
+        return levelEnded;
     }
 
 }

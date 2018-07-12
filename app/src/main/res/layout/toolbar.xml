@@ -12,11 +12,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_padding_medium"
+        android:layout_marginTop="44dp"
         android:lines="1"
         android:maxWidth="120dp"
+        app:layout_constraintEnd_toStartOf="@+id/tvPlayerScore"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintHorizontal_chainStyle="spread"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="PlayerNameqeq1eqweqweqweqwe" />
+        tools:text="PlayerName" />
 
     <TextView
         android:id="@+id/tvPlayerName2"
@@ -24,43 +28,59 @@
         android:layout_height="wrap_content"
         android:lines="1"
         android:maxWidth="120dp"
-        android:layout_marginLeft="@dimen/margin_padding_medium"
-        android:layout_marginTop="@dimen/margin_padding_small"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/tvPlayerName"
         app:layout_constraintTop_toBottomOf="@+id/tvPlayerName"
+        app:layout_constraintVertical_bias="0.384"
         tools:text="PlayerName" />
 
     <TextView
         android:id="@+id/tvPlayerScore"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/text_xlarge"
+        android:layout_marginTop="16dp"
+        android:gravity="end"
         android:minWidth="80dp"
         android:textAlignment="textEnd"
-        android:gravity="end"
-        android:layout_marginTop="@dimen/margin_padding_medium"
-        app:layout_constraintStart_toEndOf="@id/tvPlayerName"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/tvChronometer"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvPlayerName"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="1000" />
+        tools:text="1000pts" />
 
     <TextView
-        android:id="@+id/tvPts"
+        android:id="@+id/tvPlayerScore2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/tvPlayerScore"
+        android:layout_marginBottom="16dp"
+        android:layout_marginTop="8dp"
+        android:gravity="end"
+        android:minWidth="80dp"
+        android:textAlignment="textEnd"
+        android:textSize="@dimen/text_medium2"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:layout_marginBottom="@dimen/margin_padding_large"
-        android:text="@string/pts" />
+        app:layout_constraintStart_toStartOf="@+id/tvPlayerScore"
+        app:layout_constraintTop_toBottomOf="@+id/tvPlayerScore"
+        app:layout_constraintVertical_bias="1.0"
+        tools:text="1000pts" />
 
     <TextView
         android:id="@+id/tvChronometer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_padding_small"
+        android:layout_marginEnd="@dimen/margin_padding_small"
+        android:layout_marginRight="@dimen/margin_padding_small"
+        android:layout_marginTop="@dimen/margin_padding_small"
+        android:textSize="@dimen/text_xlarge"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:textSize="@dimen/text_large"
-        android:layout_marginRight="@dimen/margin_padding_medium"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/tvPlayerScore"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="0:00" />
 
 </android.support.constraint.ConstraintLayout>

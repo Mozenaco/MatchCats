@@ -37,12 +37,13 @@ public class Game {
 
     public int currentPlayerScore = 0;
     public int currentTime;
-    public String currentPlayerName;
     public List<Photo> photos;
     public GameMode gameMode = GameMode.EASY;
     public List<View> gameImageViews;
     public List<Integer> listItens;
     private int comparationLimit;
+    public int numImages;
+    public int currentImagesMatched = 0;
 
     private static Game instance;
 
@@ -58,20 +59,21 @@ public class Game {
 
     public void initGame(){
 
-        currentPlayerScore = 0;
-
         switch (gameMode){
 
             case EASY:
                 initEasyGame();
+                break;
 
+            case MEDIUM:
+                initMediumGame();
                 break;
         }
     }
 
     private void initEasyGame(){
 
-        int numImages = 3;
+        numImages = 3;
         comparationLimit = 4;
 
         //Game Ramdom Logic
@@ -89,6 +91,10 @@ public class Game {
         }
     }
 
+    private void initMediumGame(){
+
+    }
+
     public Boolean checkMatch(int firstOpenedValue, int secondOpenedValue) {
 
         Boolean isMatch = false;
@@ -100,6 +106,15 @@ public class Game {
             isMatch = true;
         }
 
+        if(isMatch)
+            currentImagesMatched++;
+
         return isMatch;
+    }
+
+    public void nextLevel(){
+
+        //Select a different gamemodelevel
+        initGame();
     }
 }

@@ -6,8 +6,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 
@@ -32,6 +32,7 @@ public class GameActivity extends AppCompatActivity {
     @BindView(R.id.tvPlayerName) TextView tvPlayerName;
     @BindView(R.id.tvPlayerName2) TextView tvPlayerName2;
     @BindView(R.id.tvPlayerScore) TextView tvPlayerScore;
+    @BindView(R.id.tvPlayerScore2) TextView tvPlayerScore2;
     @BindView(R.id.tvChronometer) TextView tvChronometer;
     @BindView(R.id.cardA1) EasyFlipView cardA1;
     @BindView(R.id.cardA2) EasyFlipView cardA2;
@@ -66,11 +67,11 @@ public class GameActivity extends AppCompatActivity {
         app.builder().preferenceModule(new PreferenceModule(this)).build().inject(this);
         gameViewModel = new GameViewModel(mPreferenceHelper);
         mExplosionField = ExplosionField.attach2Window(this);
+        numPlayers = getIntent().getIntExtra(EXTRA_NUM_PLAYERS, 1);
 
         setupViews();
         setupObservers();
 
-        numPlayers = getIntent().getIntExtra(EXTRA_NUM_PLAYERS, 1);
 
         switch (numPlayers){
             case 1:
@@ -86,7 +87,7 @@ public class GameActivity extends AppCompatActivity {
     public void setupViews() {
 
         tvPlayerName.setText(mPreferenceHelper.getNamePlayerOne());
-        tvPlayerScore.setText("0");
+        tvPlayerScore.setText("0 Pts");
         tvChronometer.setText("0:00");
 
         cardA1.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
@@ -130,6 +131,10 @@ public class GameActivity extends AppCompatActivity {
                 gameViewModel.open(5, easyFlipView);
             }
         });
+
+        if(numPlayers ==1){
+            hidePlayer2Stuff();
+        }
     }
 
     public void setupObservers() {
@@ -154,24 +159,32 @@ public class GameActivity extends AppCompatActivity {
                             actionAfterFlip.getSecondCard().setOnClickListener(null);
 
                             gameViewModel.addScoreBecauseMatch();
+                            gameViewModel.checkEndGameLevel();
                         }
                         gameViewModel.resetOpenedCardsValue();
                     }
-                }, 1000);
-
-                Toast.makeText(getApplicationContext(), ""+actionAfterFlip.getMatch(), Toast.LENGTH_SHORT).show();
-
+                }, 500);
             }
         });
 
         gameViewModel.getObservablePlayerOneScore().observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(final Integer score) {
-                        tvPlayerScore.setText(String.valueOf(score));
+                        tvPlayerScore.setText(String.valueOf(score)+" Pts");
                     }
                 }
         );
 
+        gameViewModel.getObservableEndGameLevel().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(final Boolean gameEnded) {
+                        if(gameEnded) {
+                            //cardA1.animate().setDuration(150).setStartDelay(150).scaleX(1.0f).scaleY(1.0f).alpha(1.0f).start();
+                            finish();
+                        }
+                    }
+                }
+        );
     }
 
     public void startOnePlayerGame(){
@@ -190,5 +203,10 @@ public class GameActivity extends AppCompatActivity {
     public void startTwoPlayerGame(){
 
 
+    }
+
+    public void hidePlayer2Stuff(){
+        tvPlayerName2.setVisibility(View.GONE);
+        tvPlayerScore2.setVisibility(View.GONE);
     }
 }
