@@ -81,8 +81,11 @@ public class GameViewModel extends ViewModel {
     public void checkEndGameLevel(){
         if(Game.getInstance().currentImagesMatched == Game.getInstance().numImages){
             levelEnded.postValue(true);
-            Game.getInstance().nextLevel();
         }
+    }
+
+    public void forceEndGame(){
+        levelEnded.postValue(true);
     }
 
     public int getCurrentPlayerOneScore(){

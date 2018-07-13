@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.support.constraint.ConstraintLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -88,13 +89,13 @@ public class GameActivity extends AppCompatActivity {
     public void setupViews() {
 
         tvPlayerName.setText(mPreferenceHelper.getNamePlayerOne());
-        tvPlayerScore.setText("0 Pts");
+        tvPlayerScore.setText("0 pts");
         tvChronometer.setText("0:00");
 
         if(Game.getInstance().currentNumOfPlayers > 1){
 
             tvPlayerName2.setText(mPreferenceHelper.getNamePlayerTwo());
-            tvPlayerScore2.setText("0 Pts");
+            tvPlayerScore2.setText("0 pts");
         }
 
         cardA1.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
@@ -142,6 +143,18 @@ public class GameActivity extends AppCompatActivity {
         if(numPlayers ==1){
             hidePlayer2Stuff();
         }
+
+        new CountDownTimer(20000, 1000) {
+
+            public void onTick(long millisUntilFinished) {
+                tvChronometer.setText(millisUntilFinished / 1000 + " sec");
+            }
+
+            public void onFinish() {
+                gameViewModel.forceEndGame();
+            }
+
+        }.start();
     }
 
     public void setupObservers() {
@@ -159,11 +172,15 @@ public class GameActivity extends AppCompatActivity {
                             ((EasyFlipView) actionAfterFlip.getSecondCard()).flipTheView();
 
                         }else{
-                            mExplosionField.explode(actionAfterFlip.getFirstCard());
-                            actionAfterFlip.getFirstCard().setOnClickListener(null);
+                            try {
+                                mExplosionField.explode(actionAfterFlip.getFirstCard());
+                                actionAfterFlip.getFirstCard().setOnClickListener(null);
 
-                            mExplosionField.explode(actionAfterFlip.getSecondCard());
-                            actionAfterFlip.getSecondCard().setOnClickListener(null);
+                                mExplosionField.explode(actionAfterFlip.getSecondCard());
+                                actionAfterFlip.getSecondCard().setOnClickListener(null);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
 
                             gameViewModel.addScoreBecauseMatch();
                         }
@@ -181,7 +198,7 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getObservablePlayerOneScore().observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(final Integer score) {
-                        tvPlayerScore.setText(String.valueOf(score)+" Pts");
+                        tvPlayerScore.setText(String.valueOf(score)+" pts");
                     }
                 }
         );
@@ -189,7 +206,7 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getObservablePlayerTwoScore().observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(final Integer score) {
-                        tvPlayerScore2.setText(String.valueOf(score)+" Pts");
+                        tvPlayerScore2.setText(String.valueOf(score)+" pts");
                     }
                 }
         );
@@ -201,12 +218,12 @@ public class GameActivity extends AppCompatActivity {
                             endGameLayout.setVisibility(View.VISIBLE);
 
                             if(Game.getInstance().currentNumOfPlayers == 1)
-                                tvEndGameScore.setText(String.valueOf(gameViewModel.getCurrentPlayerOneScore())+"Pts");
+                                tvEndGameScore.setText(String.valueOf(gameViewModel.getCurrentPlayerOneScore())+" pts");
                             else{
                                 tvMessage.setVisibility(View.INVISIBLE);
-                                tvEndGameScore.setText("Player 1: "+String.valueOf(gameViewModel.getCurrentPlayerOneScore())+"Pts");
+                                tvEndGameScore.setText("Player 1: "+String.valueOf(gameViewModel.getCurrentPlayerOneScore())+" pts");
                                 tvEndGameScore2.setVisibility(View.VISIBLE);
-                                tvEndGameScore2.setText("Player 2: "+String.valueOf(gameViewModel.getCurrentPlayerTwoScore())+"Pts");
+                                tvEndGameScore2.setText("Player 2: "+String.valueOf(gameViewModel.getCurrentPlayerTwoScore())+" pts");
                             }
 
                             gameViewModel.saveHighScores();

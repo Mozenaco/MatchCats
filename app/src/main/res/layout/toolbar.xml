@@ -81,6 +81,6 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/tvPlayerScore"
         app:layout_constraintTop_toTopOf="parent"
-        tools:text="0:00" />
+        tools:text="10 sec" />
 
 </android.support.constraint.ConstraintLayout>
