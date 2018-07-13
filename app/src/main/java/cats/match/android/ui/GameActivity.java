@@ -140,11 +140,11 @@ public class GameActivity extends AppCompatActivity {
             }
         });
 
-        if(numPlayers ==1){
+        if(numPlayers == 1){
             hidePlayer2Stuff();
         }
 
-        new CountDownTimer(20000, 1000) {
+        new CountDownTimer(21000, 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvChronometer.setText(millisUntilFinished / 1000 + " sec");
@@ -198,7 +198,7 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getObservablePlayerOneScore().observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(final Integer score) {
-                        tvPlayerScore.setText(String.valueOf(score)+" pts");
+                        tvPlayerScore.setText(getString(R.string.double_string, String.valueOf(score), "pts"));
                     }
                 }
         );
@@ -206,7 +206,7 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getObservablePlayerTwoScore().observe(this, new Observer<Integer>() {
                     @Override
                     public void onChanged(final Integer score) {
-                        tvPlayerScore2.setText(String.valueOf(score)+" pts");
+                        tvPlayerScore2.setText(getString(R.string.double_string, String.valueOf(score), "pts"));
                     }
                 }
         );
@@ -218,13 +218,18 @@ public class GameActivity extends AppCompatActivity {
                             endGameLayout.setVisibility(View.VISIBLE);
 
                             if(Game.getInstance().currentNumOfPlayers == 1)
-                                tvEndGameScore.setText(String.valueOf(gameViewModel.getCurrentPlayerOneScore())+" pts");
+                                tvEndGameScore.setText(getString(R.string.double_string,
+                                        String.valueOf(gameViewModel.getCurrentPlayerOneScore()),"pts"));
                             else{
                                 tvMessage.setVisibility(View.INVISIBLE);
-                                tvEndGameScore.setText("Player 1: "+String.valueOf(gameViewModel.getCurrentPlayerOneScore())+" pts");
+                                tvEndGameScore.setText(getString(R.string.triple_string,"Player 1:",
+                                        String.valueOf(gameViewModel.getCurrentPlayerOneScore()), "pts"));
                                 tvEndGameScore2.setVisibility(View.VISIBLE);
-                                tvEndGameScore2.setText("Player 2: "+String.valueOf(gameViewModel.getCurrentPlayerTwoScore())+" pts");
+                                tvEndGameScore2.setText(getString(R.string.triple_string,"Player 2:",
+                                        String.valueOf(gameViewModel.getCurrentPlayerTwoScore()), "pts"));
                             }
+                            Game.getInstance().currentPlayerOneName = mPreferenceHelper.getNamePlayerOne();
+                            Game.getInstance().currentPlayerTwoName = mPreferenceHelper.getNamePlayerTwo();
 
                             gameViewModel.saveHighScores();
                             btMainMenu.setOnClickListener(new View.OnClickListener() {
@@ -255,7 +260,6 @@ public class GameActivity extends AppCompatActivity {
         }
 
         Game.getInstance().initGame();
-
     }
 
     public void hidePlayer2Stuff(){
@@ -285,6 +289,5 @@ public class GameActivity extends AppCompatActivity {
             setSecondPlayerTurn();
         else
             setFirstPlayerTurn();
-
     }
 }

@@ -15,4 +15,6 @@
     <string name="loading">Loading...</string>
     <string name="player_1_turn">Player 1 turn</string>
     <string name="player_2_turn">Player 2 turn</string>
+    <string name="double_string">%s %s</string>
+    <string name="triple_string">%s %s %s</string>
 </resources>
