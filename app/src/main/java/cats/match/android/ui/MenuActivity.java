@@ -123,6 +123,7 @@ public class MenuActivity extends AppCompatActivity {
 
     public void play() {
         Game.getInstance().gameMode = GameMode.EASY;
+        checkNumPlayers();
         Game.getInstance().currentNumOfPlayers = numPlayers;
         startActivity(GameActivity.buildIntentForGameActivity(this, numPlayers));
     }

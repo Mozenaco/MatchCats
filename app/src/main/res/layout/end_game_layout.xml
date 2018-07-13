@@ -60,6 +60,21 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/tvMessage"
+        app:layout_constraintBottom_toTopOf="@id/tvEndGameScore2"/>
+
+    <TextView
+        android:id="@+id/tvEndGameScore2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/text_xlarge"
+        tools:text="1000 points"
+        android:textStyle="bold"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvEndGameScore"
         app:layout_constraintBottom_toTopOf="@id/btMainMenu"/>
 
     <Button
@@ -71,7 +86,7 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvEndGameScore" />
+        app:layout_constraintTop_toBottomOf="@id/tvEndGameScore2" />
 
 
 </android.support.constraint.ConstraintLayout>

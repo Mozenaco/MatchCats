@@ -85,9 +85,14 @@ public class GameViewModel extends ViewModel {
         }
     }
 
-    public int getCurrentPlayerScore(){
+    public int getCurrentPlayerOneScore(){
 
         return Game.getInstance().currentPlayerOneScore;
+    }
+
+    public int getCurrentPlayerTwoScore(){
+
+        return Game.getInstance().currentPlayerTwoScore;
     }
 
     //Gets Observables Methods

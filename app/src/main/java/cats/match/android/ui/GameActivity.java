@@ -12,14 +12,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.wajahatkarim3.easyflipview.EasyFlipView;
-
 import java.util.ArrayList;
 import java.util.Arrays;
-
 import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cats.match.android.data.di.DaggerAppComponent;
@@ -47,6 +43,8 @@ public class GameActivity extends AppCompatActivity {
     @BindView(R.id.endGameLayout) ConstraintLayout endGameLayout;
     @BindView(R.id.btMainMenu) Button btMainMenu;
     @BindView(R.id.tvEndGameScore) TextView tvEndGameScore;
+    @BindView(R.id.tvEndGameScore2) TextView tvEndGameScore2;
+    @BindView(R.id.tvMessage) TextView tvMessage;
 
     @Inject
     PreferenceHelper mPreferenceHelper;
@@ -168,13 +166,13 @@ public class GameActivity extends AppCompatActivity {
                             actionAfterFlip.getSecondCard().setOnClickListener(null);
 
                             gameViewModel.addScoreBecauseMatch();
-                            gameViewModel.checkEndGameLevel();
                         }
 
                         if(Game.getInstance().currentNumOfPlayers > 1)
                             changeTurn();
 
                         gameViewModel.resetOpenedCardsValue();
+                        gameViewModel.checkEndGameLevel();
                     }
                 }, 300);
             }
@@ -201,7 +199,16 @@ public class GameActivity extends AppCompatActivity {
                     public void onChanged(final Boolean gameEnded) {
                         if(gameEnded) {
                             endGameLayout.setVisibility(View.VISIBLE);
-                            tvEndGameScore.setText(String.valueOf(gameViewModel.getCurrentPlayerScore()));
+
+                            if(Game.getInstance().currentNumOfPlayers == 1)
+                                tvEndGameScore.setText(String.valueOf(gameViewModel.getCurrentPlayerOneScore())+"Pts");
+                            else{
+                                tvMessage.setVisibility(View.INVISIBLE);
+                                tvEndGameScore.setText("Player 1: "+String.valueOf(gameViewModel.getCurrentPlayerOneScore())+"Pts");
+                                tvEndGameScore2.setVisibility(View.VISIBLE);
+                                tvEndGameScore2.setText("Player 2: "+String.valueOf(gameViewModel.getCurrentPlayerTwoScore())+"Pts");
+                            }
+
                             gameViewModel.saveHighScores();
                             btMainMenu.setOnClickListener(new View.OnClickListener() {
                                 @Override
