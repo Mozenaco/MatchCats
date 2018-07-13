@@ -6,25 +6,20 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.view.ContextThemeWrapper;
-import android.text.InputType;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.RadioGroup;
-import android.widget.Toast;
 
 import java.util.List;
 
-import javax.inject.Inject;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cats.match.android.data.di.DaggerAppComponent;
-import cats.match.android.data.di.PreferenceModule;
 import cats.match.android.data.entities.Game;
 import cats.match.android.data.entities.Photo;
-import cats.match.android.data.sharedpreferences.PreferenceHelper;
+import cats.match.android.data.entities.enums.GameMode;
 import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.MenuViewModel;
 
@@ -44,10 +39,7 @@ public class MenuActivity extends AppCompatActivity {
 
     MenuViewModel loadingViewModel = new MenuViewModel();
 
-    @Inject
-    PreferenceHelper mPreferenceHelper;
-
-    DaggerAppComponent app;
+    int numPlayers = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,9 +49,6 @@ public class MenuActivity extends AppCompatActivity {
 
         setupView();
         setupObservers();
-
-        app.builder().preferenceModule(new PreferenceModule(this)).build().inject(this);
-
         getData();
     }
 
@@ -68,22 +57,44 @@ public class MenuActivity extends AppCompatActivity {
         btPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 AlertDialog.Builder builder = new AlertDialog.Builder(
                         new ContextThemeWrapper(MenuActivity.this, R.style.myDialog));
+
                 builder.setTitle(getString(R.string.what_name));
 
-                final EditText input = new EditText(MenuActivity.this);
-                input.setInputType(InputType.TYPE_CLASS_TEXT);
-                builder.setView(input);
+                LayoutInflater inflater = getLayoutInflater();
+                final View dialogView = inflater.inflate(R.layout.dialog_players_names, null);
+                builder.setView(dialogView);
+
                 builder.setPositiveButton(getString(R.string.play), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        mPreferenceHelper.setNamePlayerOne(input.getText().toString());
+
+                        Game.getInstance().currentPlayerOneName =
+                                ((EditText) dialogView.findViewById(R.id.etNamePlayerOne))
+                                        .getText()
+                                        .toString();
+
+                        if (numPlayers > 1) {
+                            Game.getInstance().currentPlayerTwoName =
+                                    ((EditText) dialogView.findViewById(R.id.etNamePlayerTwo))
+                                            .getText()
+                                            .toString();
+                        }
+
                         play();
                     }
                 });
 
                 builder.show();
+
+                checkNumPlayers();
+                if(numPlayers > 1)
+                    dialogView.findViewById(R.id.etNamePlayerTwo).setVisibility(View.VISIBLE);
+                else
+                    dialogView.findViewById(R.id.etNamePlayerTwo).setVisibility(View.GONE);
+
             }
         });
 
@@ -102,15 +113,17 @@ public class MenuActivity extends AppCompatActivity {
         });
     }
 
-    public void play() {
-
-        int numPlayers;
+    public void checkNumPlayers(){
         int radioChecked = rgNumberOfPlayers.getCheckedRadioButtonId();
         if(radioChecked == R.id.rbOnePlayer){
             numPlayers = 1;
         }else
             numPlayers = 2;
+    }
 
+    public void play() {
+        Game.getInstance().gameMode = GameMode.EASY;
+        Game.getInstance().currentNumOfPlayers = numPlayers;
         startActivity(GameActivity.buildIntentForGameActivity(this, numPlayers));
     }
 
@@ -135,5 +148,4 @@ public class MenuActivity extends AppCompatActivity {
         progressBar.setVisibility(View.VISIBLE);
         loadingViewModel.getPhotos();
     }
-
 }

@@ -7,4 +7,12 @@
     <string name="exit">EXIT</string>
     <string name="what_name">Whats is your name?</string>
     <string name="pts">Points</string>
+    <string name="game_over">Game Over!</string>
+    <string name="congratulations_you_scored">Congratulations! You scored</string>
+    <string name="main_menu">Main Menu</string>
+    <string name="name_of_player_two">Name of Player Two</string>
+    <string name="name_of_player_one">Name of Player One</string>
+    <string name="loading">Loading...</string>
+    <string name="player_1_turn">Player 1 turn</string>
+    <string name="player_2_turn">Player 2 turn</string>
 </resources>

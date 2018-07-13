@@ -9,13 +9,20 @@
     tools:context="cats.match.android.ui.MenuActivity">
 
     <include
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        layout="@layout/toolbar"/>
+        android:id="@+id/endGameLayout"
+        layout="@layout/end_game_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center" />
 
     <include
-        app:layout_constraintTop_toTopOf="parent"
+        layout="@layout/toolbar"
         app:layout_constraintStart_toStartOf="parent"
-        layout="@layout/game_mode_1"/>
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <include
+        layout="@layout/game_mode_1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </LinearLayout>

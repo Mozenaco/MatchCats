@@ -11,8 +11,6 @@ import dagger.Component;
 @Component(modules = PreferenceModule.class)
 public interface AppComponent {
 
-    void inject(MenuActivity menuActivity);
-
     void inject(HighScoresActivity highScoresActivity);
 
     void inject(GameActivity gameActivity);

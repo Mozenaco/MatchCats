@@ -35,15 +35,20 @@ import cats.match.android.data.sharedpreferences.PreferenceHelper;
 @Singleton
 public class Game {
 
-    public int currentPlayerScore = 0;
+    public int currentPlayerOneScore = 0;
+    public String currentPlayerOneName = "";
+    public int currentPlayerTwoScore = 0;
+    public String currentPlayerTwoName = "";
+    public int currentNumOfPlayers = 1;
+    public int currentImagesMatched = 0;
+    public int currentPlayerTurn = 1;
     public int currentTime;
     public List<Photo> photos;
     public GameMode gameMode = GameMode.EASY;
     public List<View> gameImageViews;
-    public List<Integer> listItens;
+    public static List<Integer> listItens;
     private int comparationLimit;
     public int numImages;
-    public int currentImagesMatched = 0;
 
     private static Game instance;
 
@@ -55,6 +60,16 @@ public class Game {
             instance = new Game();
         }
         return instance;
+    }
+
+    public void resetGame(){
+        currentPlayerOneScore = 0;
+        currentPlayerOneName = "";
+        currentPlayerTwoScore = 0;
+        currentPlayerTwoName = "";
+        currentImagesMatched = 0;
+        currentTime = 0;
+        gameMode = GameMode.EASY;
     }
 
     public void initGame(){
