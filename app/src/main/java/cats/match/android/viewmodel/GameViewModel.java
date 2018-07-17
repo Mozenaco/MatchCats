@@ -11,6 +11,12 @@ import cats.match.android.data.entities.Game;
 import cats.match.android.data.entities.HighScore;
 import cats.match.android.data.sharedpreferences.PreferenceHelper;
 
+/**
+ * GameViewModel is a viewModel to control and modify the view [GameActivity]
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class GameViewModel extends ViewModel {
 
     private PreferenceHelper preferenceHelper;

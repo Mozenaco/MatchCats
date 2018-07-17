@@ -11,6 +11,12 @@ import java.util.List;
 import cats.match.android.data.entities.HighScore;
 import cats.match.android.matchcats.R;
 
+/**
+ * Adapter for the list of HighScores
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class HighScoresAdapter extends RecyclerView.Adapter<HighScoresAdapter.ViewHolder> {
 
     private final List<HighScore> mValues;

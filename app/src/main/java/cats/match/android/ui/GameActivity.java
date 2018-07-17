@@ -28,6 +28,13 @@ import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.GameViewModel;
 import tyrantgit.explosionfield.ExplosionField;
 
+/**
+ * GameActivity class is the view where the game happens. It is defined here views behaviors and
+ * callbacks to the ViewModel
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class GameActivity extends AppCompatActivity {
 
     @BindView(R.id.tvPlayerName) TextView tvPlayerName;

@@ -14,6 +14,13 @@ import java.util.List;
 
 import cats.match.android.data.entities.HighScore;
 
+/**
+ * PreferenceHelper class is a singleton class that is responsible for store some player data on Game
+ * and store information about highscores.
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class PreferenceHelper {
 
     private static PreferenceHelper instance;

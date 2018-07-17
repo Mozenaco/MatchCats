@@ -2,6 +2,12 @@ package cats.match.android.data.entities;
 
 import android.support.annotation.NonNull;
 
+/**
+ * Class HighScore responsible for store about the score made by the player
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class HighScore implements Comparable{
 
     String Name;

@@ -17,6 +17,12 @@ import cats.match.android.data.sharedpreferences.PreferenceHelper;
 import cats.match.android.matchcats.R;
 import cats.match.android.ui.adapter.HighScoresAdapter;
 
+/**
+ * HighScoresActivity is a view to show a list of highscores
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class HighScoresActivity extends AppCompatActivity {
 
 

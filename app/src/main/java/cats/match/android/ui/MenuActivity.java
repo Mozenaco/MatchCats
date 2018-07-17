@@ -23,6 +23,13 @@ import cats.match.android.data.entities.enums.GameMode;
 import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.MenuViewModel;
 
+/**
+ * MenuActivity is the first view that appear when we run the game. Here is defined the name of the
+ * Players and the action to start the game.
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class MenuActivity extends AppCompatActivity {
 
     //Binding Views

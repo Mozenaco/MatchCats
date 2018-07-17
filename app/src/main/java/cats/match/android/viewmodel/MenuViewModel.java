@@ -10,6 +10,12 @@ import cats.match.android.data.remote.FlickrApi;
 import retrofit2.Call;
 import retrofit2.Callback;
 
+/**
+ * GameViewModel is a viewModel to control and modify the view [MenuViewModel]
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 public class MenuViewModel extends ViewModel {
 
     private MutableLiveData<List<Photo>> photos = new MutableLiveData<List<Photo>>();

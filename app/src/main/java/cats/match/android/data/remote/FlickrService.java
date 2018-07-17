@@ -8,10 +8,8 @@ import retrofit2.http.GET;
  * Interface for call the api and get a json from FlickrApi using [Retrofit]
  *
  * @author Mateus Andrade
- * @since 06/07/18
- *
+ * @since 06/07/2018
  */
-
 public interface FlickrService {
 
     @GET("services/rest/?method=flickr.photos.search" +

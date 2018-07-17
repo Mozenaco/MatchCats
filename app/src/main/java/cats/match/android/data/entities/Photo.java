@@ -1,12 +1,11 @@
 package cats.match.android.data.entities;
 
-/*
-*
-* @author Mateus Andrade
-* @since 06/07/2018
-*
-*/
-
+/**
+ * Class Photo responsible for store data of the serialized object from the service
+ *
+ * @author Mateus Andrade
+ * @since 06/07/2018
+ */
 import com.google.gson.annotations.SerializedName;
 
 public class Photo {

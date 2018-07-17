@@ -1,36 +1,20 @@
 package cats.match.android.data.entities;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
-import android.os.AsyncTask;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-
 import javax.inject.Singleton;
-
 import cats.match.android.data.entities.enums.GameMode;
-import cats.match.android.data.sharedpreferences.PreferenceHelper;
 
-/*
+/**
+ * This class orchestrate the current game variables, states and links for resources
  *
  * @author Mateus Andrade
  * @since 06/07/2018
- *
  */
 @Singleton
 public class Game {
@@ -86,10 +70,11 @@ public class Game {
         }
     }
 
+    //Init an easy game mode with 3 images. (3 images multiplied by 2 is 6 squares to play with)
     private void initEasyGame(){
 
         numImages = 3;
-        comparationLimit = 4;
+        comparationLimit = (numImages*2)-2;
 
         //Game Ramdom Logic
         listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5));
