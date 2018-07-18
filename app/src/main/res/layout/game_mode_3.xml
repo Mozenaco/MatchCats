@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_padding_small">
+
+    <FrameLayout
+        android:id="@+id/viewA1"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@+id/viewB1"
+        app:layout_constraintEnd_toStartOf="@+id/viewA2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <FrameLayout
+        android:id="@+id/viewB1"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@+id/viewC1"
+        app:layout_constraintEnd_toStartOf="@+id/viewB2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewA1" />
+
+    <FrameLayout
+        android:id="@+id/viewC1"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@id/viewD1"
+        app:layout_constraintEnd_toStartOf="@+id/viewC2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewB1" />
+
+    <FrameLayout
+        android:id="@+id/viewD1"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/viewD2"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/viewC1" />
+
+    <FrameLayout
+        android:id="@+id/viewA2"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewA3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewA1"
+        app:layout_constraintTop_toTopOf="@id/viewA1" />
+
+    <FrameLayout
+        android:id="@+id/viewB2"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewB3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewB1"
+        app:layout_constraintTop_toTopOf="@id/viewB1" />
+
+    <FrameLayout
+        android:id="@+id/viewC2"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewC3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewC1"
+        app:layout_constraintTop_toTopOf="@id/viewC1" />
+
+    <FrameLayout
+        android:id="@+id/viewD2"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewD3"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewD1"
+        app:layout_constraintTop_toTopOf="@id/viewD1" />
+
+    <FrameLayout
+        android:id="@+id/viewA3"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewA4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewA2"
+        app:layout_constraintTop_toTopOf="@id/viewA2"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <FrameLayout
+        android:id="@+id/viewB3"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewB4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewB2"
+        app:layout_constraintTop_toTopOf="@+id/viewB2" />
+
+    <FrameLayout
+        android:id="@+id/viewC3"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewC4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewC2"
+        app:layout_constraintTop_toBottomOf="@+id/viewB1"
+        app:layout_constraintTop_toTopOf="@id/viewC2" />
+
+    <FrameLayout
+        android:id="@+id/viewD3"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintEnd_toStartOf="@+id/viewD4"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewD2"
+        app:layout_constraintTop_toTopOf="@id/viewD2" />
+
+    <FrameLayout
+        android:id="@+id/viewA4"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@+id/viewB1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewA3"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="spread" />
+
+    <FrameLayout
+        android:id="@+id/viewB4"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@+id/viewC1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewB3"
+        app:layout_constraintTop_toBottomOf="@+id/viewA1" />
+
+    <FrameLayout
+        android:id="@+id/viewC4"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toTopOf="@id/viewD3"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewC3"
+        app:layout_constraintTop_toBottomOf="@+id/viewB1" />
+
+    <FrameLayout
+        android:id="@+id/viewD4"
+        android:layout_width="@dimen/square_size_mode_3"
+        android:layout_height="@dimen/square_size_mode_3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewD3"
+        app:layout_constraintTop_toBottomOf="@+id/viewC1" />
+
+</android.support.constraint.ConstraintLayout>

@@ -72,6 +72,10 @@ public class Game {
             case MEDIUM:
                 initMediumGameConfigs();
                 break;
+
+            case HARD:
+                initHardGameConfigs();
+                break;
         }
 
         loadGameImages();
@@ -89,7 +93,10 @@ public class Game {
                         R.id.viewB2, R.id.viewB3, R.id.viewC1, R.id.viewC2, R.id.viewC3,
                         R.id.viewD1, R.id.viewD2, R.id.viewD3);
             case HARD:
-                return null;
+                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewA3, R.id.viewA4,
+                        R.id.viewB1, R.id.viewB2, R.id.viewB3, R.id.viewB4, R.id.viewC1,
+                        R.id.viewC2, R.id.viewC3, R.id.viewC4, R.id.viewD1, R.id.viewD2,
+                        R.id.viewD3, R.id.viewD4);
             default:
                 return null;
         }
@@ -104,7 +111,7 @@ public class Game {
             case MEDIUM:
                 return R.layout.game_mode_2;
             case HARD:
-                return null;
+                return R.layout.game_mode_3;
             default:
                 return null;
         }
@@ -137,6 +144,14 @@ public class Game {
 
         //Game Ramdom Logic
         listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11));
+        Collections.shuffle(listItens);
+
+    }
+
+    private void initHardGameConfigs(){
+
+        //Game Ramdom Logic
+        listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15));
         Collections.shuffle(listItens);
 
     }

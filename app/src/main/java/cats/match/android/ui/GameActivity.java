@@ -85,7 +85,7 @@ public class GameActivity extends AppCompatActivity {
 
         Game.getInstance().resetGame();
 
-        Game.getInstance().gameMode = GameMode.MEDIUM;
+        Game.getInstance().gameMode = GameMode.HARD;
 
         setupViews();
         setupObservers();
