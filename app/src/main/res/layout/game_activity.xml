@@ -13,6 +13,7 @@
         layout="@layout/end_game_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        tools:visibility="gone"
         android:layout_gravity="center" />
 
     <include
@@ -20,8 +21,10 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <include
-        layout="@layout/game_mode_1"
+    <FrameLayout
+        android:id="@+id/gameRegion"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

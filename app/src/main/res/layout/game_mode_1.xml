@@ -1,155 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:padding="@dimen/margin_padding_medium">
 
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardA1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/cardB1"
-        app:layout_constraintEnd_toStartOf="@id/cardA2"
-        app:layout_constraintHorizontal_chainStyle="spread"
+    <FrameLayout
+        android:id="@+id/viewA1"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
+        app:layout_constraintBottom_toTopOf="@+id/viewB1"
+        app:layout_constraintEnd_toStartOf="@+id/viewA2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="1">
+        app:layout_constraintVertical_chainStyle="spread" />
 
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardA2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/cardB2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardA1"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_chainStyle="spread">
-
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardB1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/cardC1"
-        app:layout_constraintEnd_toStartOf="@id/cardB2"
-        app:layout_constraintHorizontal_chainStyle="spread"
+    <FrameLayout
+        android:id="@+id/viewB1"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
+        app:layout_constraintBottom_toTopOf="@+id/viewC1"
+        app:layout_constraintEnd_toStartOf="@+id/viewB2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardA1"
-        app:layout_constraintVertical_chainStyle="spread"
-        app:layout_constraintVertical_weight="1">
+        app:layout_constraintTop_toBottomOf="@+id/viewA1" />
 
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardB2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:layout_constraintBottom_toTopOf="@id/cardC2"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardB1"
-        app:layout_constraintTop_toBottomOf="@+id/cardA2">
-
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardC1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
+    <FrameLayout
+        android:id="@+id/viewC1"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/cardC2"
-        app:layout_constraintHorizontal_chainStyle="spread"
+        app:layout_constraintEnd_toStartOf="@+id/viewC2"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cardB1"
-        app:layout_constraintVertical_weight="1">
+        app:layout_constraintTop_toBottomOf="@+id/viewB1" />
 
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
-
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
-    <com.wajahatkarim3.easyflipview.EasyFlipView
-        android:id="@+id/cardC2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:flipDuration="400"
-        app:flipEnabled="true"
-        app:flipFrom="right"
-        app:flipOnTouch="true"
-        app:flipType="horizontal"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <FrameLayout
+        android:id="@+id/viewA2"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/cardC1"
-        app:layout_constraintTop_toBottomOf="@+id/cardB2">
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewA1"
+        app:layout_constraintTop_toTopOf="@id/viewA1" />
 
-        <!-- Back Layout Goes Here -->
-        <include layout="@layout/back" />
+    <FrameLayout
+        android:id="@+id/viewB2"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewB1"
+        app:layout_constraintTop_toTopOf="@id/viewB1" />
 
-        <!-- Front Layout Goes Here -->
-        <include layout="@layout/front" />
-
-    </com.wajahatkarim3.easyflipview.EasyFlipView>
-
+    <FrameLayout
+        android:id="@+id/viewC2"
+        android:layout_width="@dimen/square_size_mode_1"
+        android:layout_height="@dimen/square_size_mode_1"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toEndOf="@+id/viewC1"
+        app:layout_constraintTop_toTopOf="@+id/viewC1" />
 
 </android.support.constraint.ConstraintLayout>
