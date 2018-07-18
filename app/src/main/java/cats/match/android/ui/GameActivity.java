@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -209,75 +210,43 @@ public class GameActivity extends AppCompatActivity {
 
     public void startGame(){
 
+        int gameNumOfCards = Game.getInstance().gameMode.toIntValue();
+
         LayoutInflater inflater = LayoutInflater.from(this);
 
         ConstraintLayout gameMode1 = (ConstraintLayout) inflater.inflate(R.layout.game_mode_1, null, false);
         ((FrameLayout)findViewById(R.id.gameRegion)).addView(gameMode1);
 
-        EasyFlipView layout = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout.setId(Utils.generateViewId());
-        EasyFlipView layout1 = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout1.setId(Utils.generateViewId());
-        EasyFlipView layout2 = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout2.setId(Utils.generateViewId());
-        EasyFlipView layout3 = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout3.setId(Utils.generateViewId());
-        EasyFlipView layout4 = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout4.setId(Utils.generateViewId());
-        EasyFlipView layout5 = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
-        layout5.setId(Utils.generateViewId());
+        List<EasyFlipView> listEasyFlipView = new ArrayList<>();
 
-        layout.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(0, easyFlipView);
-            }
-        });
-        layout1.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(1, easyFlipView);
-            }
-        });
-        layout2.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(2, easyFlipView);
-            }
-        });
-        layout3.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(3, easyFlipView);
-            }
-        });
-        layout4.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(4, easyFlipView);
-            }
-        });
-        layout5.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
-            @Override
-            public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
-                gameViewModel.open(5, easyFlipView);
-            }
-        });
+        for(int i = 0; i < gameNumOfCards; i++){
 
-        ((FrameLayout)findViewById(R.id.viewA1)).addView(layout);
-        ((FrameLayout)findViewById(R.id.viewA2)).addView(layout1);
-        ((FrameLayout)findViewById(R.id.viewB1)).addView(layout2);
-        ((FrameLayout)findViewById(R.id.viewB2)).addView(layout3);
-        ((FrameLayout)findViewById(R.id.viewC1)).addView(layout4);
-        ((FrameLayout)findViewById(R.id.viewC2)).addView(layout5);
+            final int index = i;
 
-        Game.getInstance().gameImageViews = new ArrayList<>(Arrays.asList(
-                (findViewById(R.id.viewA1)).findViewById(R.id.ivImageCardViewBack),
-                (findViewById(R.id.viewA2)).findViewById(R.id.ivImageCardViewBack),
-                (findViewById(R.id.viewB1)).findViewById(R.id.ivImageCardViewBack),
-                (findViewById(R.id.viewB2)).findViewById(R.id.ivImageCardViewBack),
-                (findViewById(R.id.viewC1)).findViewById(R.id.ivImageCardViewBack),
-                (findViewById(R.id.viewC2)).findViewById(R.id.ivImageCardViewBack)));
+            EasyFlipView layout = (EasyFlipView) inflater.inflate(R.layout.game_card_view, null, false);
+            layout.setId(Utils.generateViewId());
+
+            layout.setOnFlipListener(new EasyFlipView.OnFlipAnimationListener() {
+                @Override
+                public void onViewFlipCompleted(EasyFlipView easyFlipView, EasyFlipView.FlipState newCurrentSide) {
+                    gameViewModel.open(index, easyFlipView);
+                }
+            });
+            listEasyFlipView.add(layout);
+
+        }
+
+        List<Integer> viewsIds = Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
+                R.id.viewC1, R.id.viewC2);
+
+        List<View> gameImageViews = new ArrayList<>();
+
+        for(int i = 0; i < gameNumOfCards; i++){
+            ((FrameLayout)findViewById(viewsIds.get(i))).addView(listEasyFlipView.get(i));
+            gameImageViews.add((findViewById(viewsIds.get(i)).findViewById(R.id.ivImageCardViewBack)));
+        }
+
+        Game.getInstance().gameImageViews = gameImageViews;
 
         if(numPlayers > 1){
             setFirstPlayerTurn();
