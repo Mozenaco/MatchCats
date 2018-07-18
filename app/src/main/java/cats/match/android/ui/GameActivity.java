@@ -26,6 +26,7 @@ import cats.match.android.data.di.DaggerAppComponent;
 import cats.match.android.data.di.PreferenceModule;
 import cats.match.android.data.entities.ActionAfterFlip;
 import cats.match.android.data.entities.Game;
+import cats.match.android.data.entities.enums.GameMode;
 import cats.match.android.data.sharedpreferences.PreferenceHelper;
 import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.GameViewModel;
@@ -84,6 +85,8 @@ public class GameActivity extends AppCompatActivity {
 
         Game.getInstance().resetGame();
 
+        Game.getInstance().gameMode = GameMode.MEDIUM;
+
         setupViews();
         setupObservers();
 
@@ -106,7 +109,7 @@ public class GameActivity extends AppCompatActivity {
             hidePlayer2Stuff();
         }
 
-        new CountDownTimer(21000, 1000) {
+        new CountDownTimer(Game.getInstance().getFullTimeValue(), 1000) {
 
             public void onTick(long millisUntilFinished) {
                 tvChronometer.setText(millisUntilFinished / 1000 + " sec");
@@ -213,8 +216,10 @@ public class GameActivity extends AppCompatActivity {
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
-        ConstraintLayout gameMode1 = (ConstraintLayout) inflater.inflate(R.layout.game_mode_1, null, false);
-        ((FrameLayout) findViewById(R.id.gameRegion)).addView(gameMode1);
+        int idLayoutByGameMode = Game.getInstance().getIdLayoutBase();
+
+        ConstraintLayout gameMode = (ConstraintLayout) inflater.inflate(idLayoutByGameMode, null, false);
+        ((FrameLayout) findViewById(R.id.gameRegion)).addView(gameMode);
 
         List<EasyFlipView> listEasyFlipView = new ArrayList<>();
 

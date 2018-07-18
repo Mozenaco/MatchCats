@@ -59,16 +59,22 @@ public class Game {
 
     public void initGame(){
 
+        numImages = gameMode.toIntValue()/2;
+        comparationLimit = (numImages*2)-2;
+
         switch (gameMode){
 
+            //Init an easy game mode with 3 images. (3 images multiplied by 2 is 6 squares to play with)
             case EASY:
                 initEasyGameConfigs();
-                loadEasyGameImages();
                 break;
 
             case MEDIUM:
+                initMediumGameConfigs();
                 break;
         }
+
+        loadGameImages();
     }
 
     public List<Integer> getViewIds(){
@@ -79,21 +85,47 @@ public class Game {
                 return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
                         R.id.viewC1, R.id.viewC2);
             case MEDIUM:
-                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
-                        R.id.viewC1, R.id.viewC2);
+                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewA3, R.id.viewB1,
+                        R.id.viewB2, R.id.viewB3, R.id.viewC1, R.id.viewC2, R.id.viewC3,
+                        R.id.viewD1, R.id.viewD2, R.id.viewD3);
             case HARD:
-                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
-                        R.id.viewC1, R.id.viewC2);
+                return null;
             default:
                 return null;
         }
     }
 
-    //Init an easy game mode with 3 images. (3 images multiplied by 2 is 6 squares to play with)
-    private void initEasyGameConfigs(){
+    public Integer getIdLayoutBase(){
 
-        numImages = gameMode.toIntValue()/2;
-        comparationLimit = (numImages*2)-2;
+        switch (gameMode) {
+
+            case EASY:
+                return R.layout.game_mode_1;
+            case MEDIUM:
+                return R.layout.game_mode_2;
+            case HARD:
+                return null;
+            default:
+                return null;
+        }
+    }
+
+    public Integer getFullTimeValue(){
+
+        switch (gameMode) {
+
+            case EASY:
+                return 21000;
+            case MEDIUM:
+                return 51000;
+            case HARD:
+                return 71000;
+            default:
+                return null;
+        }
+    }
+
+    private void initEasyGameConfigs(){
 
         //Game Ramdom Logic
         listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5));
@@ -101,7 +133,15 @@ public class Game {
 
     }
 
-    private void loadEasyGameImages() {
+    private void initMediumGameConfigs(){
+
+        //Game Ramdom Logic
+        listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5,6,7,8,9,10,11));
+        Collections.shuffle(listItens);
+
+    }
+
+    private void loadGameImages() {
 
         //Loading Images
         int j = 0;
@@ -112,10 +152,6 @@ public class Game {
             Picasso.get().load(photos.get(i).getUrlString()).into((ImageView)gameImageViews.get(listItens.get(j)));
             j++;
         }
-    }
-
-    private void initMediumGame(){
-
     }
 
     public Boolean checkMatch(int firstOpenedValue, int secondOpenedValue) {
