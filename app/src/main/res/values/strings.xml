@@ -17,4 +17,5 @@
     <string name="player_2_turn">Player 2 turn</string>
     <string name="double_string">%s %s</string>
     <string name="triple_string">%s %s %s</string>
+    <string name="not_possible">It was not possible create the game</string>
 </resources>

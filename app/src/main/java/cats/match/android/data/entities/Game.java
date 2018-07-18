@@ -9,6 +9,7 @@ import java.util.Collections;
 import java.util.List;
 import javax.inject.Singleton;
 import cats.match.android.data.entities.enums.GameMode;
+import cats.match.android.matchcats.R;
 
 /**
  * This class orchestrate the current game variables, states and links for resources
@@ -61,24 +62,46 @@ public class Game {
         switch (gameMode){
 
             case EASY:
-                initEasyGame();
+                initEasyGameConfigs();
+                loadEasyGameImages();
                 break;
 
             case MEDIUM:
-                initMediumGame();
                 break;
         }
     }
 
-    //Init an easy game mode with 3 images. (3 images multiplied by 2 is 6 squares to play with)
-    private void initEasyGame(){
+    public List<Integer> getViewIds(){
 
-        numImages = 3;
+        switch (gameMode) {
+
+            case EASY:
+                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
+                        R.id.viewC1, R.id.viewC2);
+            case MEDIUM:
+                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
+                        R.id.viewC1, R.id.viewC2);
+            case HARD:
+                return Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
+                        R.id.viewC1, R.id.viewC2);
+            default:
+                return null;
+        }
+    }
+
+    //Init an easy game mode with 3 images. (3 images multiplied by 2 is 6 squares to play with)
+    private void initEasyGameConfigs(){
+
+        numImages = gameMode.toIntValue()/2;
         comparationLimit = (numImages*2)-2;
 
         //Game Ramdom Logic
         listItens = new ArrayList<>(Arrays.asList(0,1,2,3,4,5));
         Collections.shuffle(listItens);
+
+    }
+
+    private void loadEasyGameImages() {
 
         //Loading Images
         int j = 0;

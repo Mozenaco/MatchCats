@@ -17,7 +17,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.wajahatkarim3.easyflipview.EasyFlipView;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
@@ -97,13 +96,13 @@ public class GameActivity extends AppCompatActivity {
         tvPlayerScore.setText("0 pts");
         tvChronometer.setText("0:00");
 
-        if(Game.getInstance().currentNumOfPlayers > 1){
+        if (Game.getInstance().currentNumOfPlayers > 1) {
 
             tvPlayerName2.setText(mPreferenceHelper.getNamePlayerTwo());
             tvPlayerScore2.setText("0 pts");
         }
 
-        if(numPlayers == 1){
+        if (numPlayers == 1) {
             hidePlayer2Stuff();
         }
 
@@ -130,25 +129,25 @@ public class GameActivity extends AppCompatActivity {
                 handler.postDelayed(new Runnable() {
                     @Override
                     public void run() {
-                        if(!actionAfterFlip.getMatch()) {
+                        if (!actionAfterFlip.getMatch()) {
                             ((EasyFlipView) actionAfterFlip.getFirstCard()).flipTheView();
                             ((EasyFlipView) actionAfterFlip.getSecondCard()).flipTheView();
 
-                        }else{
+                        } else {
                             try {
                                 mExplosionField.explode(actionAfterFlip.getFirstCard());
                                 actionAfterFlip.getFirstCard().setOnClickListener(null);
 
                                 mExplosionField.explode(actionAfterFlip.getSecondCard());
                                 actionAfterFlip.getSecondCard().setOnClickListener(null);
-                            }catch (Exception e){
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
 
                             gameViewModel.addScoreBecauseMatch();
                         }
 
-                        if(Game.getInstance().currentNumOfPlayers > 1)
+                        if (Game.getInstance().currentNumOfPlayers > 1)
                             changeTurn();
 
                         gameViewModel.resetOpenedCardsValue();
@@ -177,18 +176,18 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.getObservableEndGameLevel().observe(this, new Observer<Boolean>() {
                     @Override
                     public void onChanged(final Boolean gameEnded) {
-                        if(gameEnded) {
+                        if (gameEnded) {
                             endGameLayout.setVisibility(View.VISIBLE);
 
-                            if(Game.getInstance().currentNumOfPlayers == 1)
+                            if (Game.getInstance().currentNumOfPlayers == 1)
                                 tvEndGameScore.setText(getString(R.string.double_string,
-                                        String.valueOf(gameViewModel.getCurrentPlayerOneScore()),"pts"));
-                            else{
+                                        String.valueOf(gameViewModel.getCurrentPlayerOneScore()), "pts"));
+                            else {
                                 tvMessage.setVisibility(View.INVISIBLE);
-                                tvEndGameScore.setText(getString(R.string.triple_string,"Player 1:",
+                                tvEndGameScore.setText(getString(R.string.triple_string, "Player 1:",
                                         String.valueOf(gameViewModel.getCurrentPlayerOneScore()), "pts"));
                                 tvEndGameScore2.setVisibility(View.VISIBLE);
-                                tvEndGameScore2.setText(getString(R.string.triple_string,"Player 2:",
+                                tvEndGameScore2.setText(getString(R.string.triple_string, "Player 2:",
                                         String.valueOf(gameViewModel.getCurrentPlayerTwoScore()), "pts"));
                             }
                             Game.getInstance().currentPlayerOneName = mPreferenceHelper.getNamePlayerOne();
@@ -208,18 +207,18 @@ public class GameActivity extends AppCompatActivity {
         );
     }
 
-    public void startGame(){
+    public void startGame() {
 
         int gameNumOfCards = Game.getInstance().gameMode.toIntValue();
 
         LayoutInflater inflater = LayoutInflater.from(this);
 
         ConstraintLayout gameMode1 = (ConstraintLayout) inflater.inflate(R.layout.game_mode_1, null, false);
-        ((FrameLayout)findViewById(R.id.gameRegion)).addView(gameMode1);
+        ((FrameLayout) findViewById(R.id.gameRegion)).addView(gameMode1);
 
         List<EasyFlipView> listEasyFlipView = new ArrayList<>();
 
-        for(int i = 0; i < gameNumOfCards; i++){
+        for (int i = 0; i < gameNumOfCards; i++) {
 
             final int index = i;
 
@@ -236,31 +235,35 @@ public class GameActivity extends AppCompatActivity {
 
         }
 
-        List<Integer> viewsIds = Arrays.asList(R.id.viewA1, R.id.viewA2, R.id.viewB1, R.id.viewB2,
-                R.id.viewC1, R.id.viewC2);
+        List<Integer> viewsIds = Game.getInstance().getViewIds();
 
-        List<View> gameImageViews = new ArrayList<>();
+        if (viewsIds != null) {
 
-        for(int i = 0; i < gameNumOfCards; i++){
-            ((FrameLayout)findViewById(viewsIds.get(i))).addView(listEasyFlipView.get(i));
-            gameImageViews.add((findViewById(viewsIds.get(i)).findViewById(R.id.ivImageCardViewBack)));
+            List<View> gameImageViews = new ArrayList<>();
+
+            for (int i = 0; i < gameNumOfCards; i++) {
+                ((FrameLayout) findViewById(viewsIds.get(i))).addView(listEasyFlipView.get(i));
+                gameImageViews.add((findViewById(viewsIds.get(i)).findViewById(R.id.ivImageCardViewBack)));
+            }
+
+            Game.getInstance().gameImageViews = gameImageViews;
+
+            if (numPlayers > 1) {
+                setFirstPlayerTurn();
+            }
+
+            Game.getInstance().initGame();
+        } else {
+            Toast.makeText(getApplicationContext(), R.string.not_possible, Toast.LENGTH_SHORT).show();
         }
-
-        Game.getInstance().gameImageViews = gameImageViews;
-
-        if(numPlayers > 1){
-            setFirstPlayerTurn();
-        }
-
-        Game.getInstance().initGame();
     }
 
-    public void hidePlayer2Stuff(){
+    public void hidePlayer2Stuff() {
         tvPlayerName2.setVisibility(View.GONE);
         tvPlayerScore2.setVisibility(View.GONE);
     }
 
-    public void setFirstPlayerTurn(){
+    public void setFirstPlayerTurn() {
         tvPlayerName.setTypeface(null, Typeface.BOLD);
         tvPlayerName2.setTypeface(null, Typeface.NORMAL);
         tvPlayerScore.setTypeface(null, Typeface.BOLD);
@@ -269,7 +272,7 @@ public class GameActivity extends AppCompatActivity {
         gameViewModel.setTurnToPlayer(1);
     }
 
-    public void setSecondPlayerTurn(){
+    public void setSecondPlayerTurn() {
         tvPlayerName.setTypeface(null, Typeface.NORMAL);
         tvPlayerName2.setTypeface(null, Typeface.BOLD);
         tvPlayerScore.setTypeface(null, Typeface.NORMAL);
@@ -277,8 +280,9 @@ public class GameActivity extends AppCompatActivity {
         Toast.makeText(this, R.string.player_2_turn, Toast.LENGTH_SHORT).show();
         gameViewModel.setTurnToPlayer(2);
     }
-    public void changeTurn(){
-        if(Game.getInstance().currentPlayerTurn == 1)
+
+    public void changeTurn() {
+        if (Game.getInstance().currentPlayerTurn == 1)
             setSecondPlayerTurn();
         else
             setFirstPlayerTurn();
