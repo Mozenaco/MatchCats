@@ -1,4 +1,4 @@
-package cats.match.android.data.Utils;
+package cats.match.android.data.utils;
 
 import java.util.concurrent.atomic.AtomicInteger;
 
