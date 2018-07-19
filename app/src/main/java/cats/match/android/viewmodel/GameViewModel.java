@@ -133,6 +133,10 @@ public class GameViewModel extends ViewModel {
         return showNextLevelButton;
     }
 
+    public MutableLiveData<Boolean> getObservableSavedHighScore() {
+        return savedHighScore;
+    }
+
     public void setTurnToPlayer(int i) {
         Game.getInstance().currentPlayerTurn = i;
     }
