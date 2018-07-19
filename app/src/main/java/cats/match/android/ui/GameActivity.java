@@ -21,12 +21,11 @@ import java.util.List;
 import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cats.match.android.data.Utils.Utils;
+import cats.match.android.data.utils.Utils;
 import cats.match.android.data.di.DaggerAppComponent;
 import cats.match.android.data.di.PreferenceModule;
 import cats.match.android.data.entities.ActionAfterFlip;
 import cats.match.android.data.entities.Game;
-import cats.match.android.data.entities.enums.GameMode;
 import cats.match.android.data.sharedpreferences.PreferenceHelper;
 import cats.match.android.matchcats.R;
 import cats.match.android.viewmodel.GameViewModel;
@@ -51,6 +50,9 @@ public class GameActivity extends AppCompatActivity {
     @BindView(R.id.tvEndGameScore) TextView tvEndGameScore;
     @BindView(R.id.tvEndGameScore2) TextView tvEndGameScore2;
     @BindView(R.id.tvMessage) TextView tvMessage;
+    @BindView(R.id.tvGameOver) TextView tvGameOver;
+    @BindView(R.id.btNextLevelButton) Button btNextLevelButton;
+
 
     @Inject
     PreferenceHelper mPreferenceHelper;
@@ -62,11 +64,13 @@ public class GameActivity extends AppCompatActivity {
     GameViewModel gameViewModel;
 
     static String EXTRA_NUM_PLAYERS = "numberOfPlayers";
+    static String EXTRA_IS_TO_RESET = "isToReset";
 
-    public static Intent buildIntentForGameActivity(Context context, int numberOfPlayers) {
+    public static Intent buildIntentForGameActivity(Context context, int numberOfPlayers, boolean isToReset) {
 
         Intent game = new Intent(context, GameActivity.class);
         game.putExtra(EXTRA_NUM_PLAYERS, numberOfPlayers);
+        game.putExtra(EXTRA_IS_TO_RESET, isToReset);
         return game;
     }
 
@@ -83,9 +87,10 @@ public class GameActivity extends AppCompatActivity {
         mPreferenceHelper.setNamePlayerOne(Game.getInstance().currentPlayerOneName);
         mPreferenceHelper.setNamePlayerTwo(Game.getInstance().currentPlayerTwoName);
 
-        Game.getInstance().resetGame();
+        if(getIntent().getBooleanExtra(EXTRA_IS_TO_RESET, true))
+            Game.getInstance().resetGame();
 
-        Game.getInstance().gameMode = GameMode.HARD;
+        Game.getInstance().resetCurrentImagesMatched();
 
         setupViews();
         setupObservers();
@@ -98,6 +103,18 @@ public class GameActivity extends AppCompatActivity {
         tvPlayerName.setText(mPreferenceHelper.getNamePlayerOne());
         tvPlayerScore.setText("0 pts");
         tvChronometer.setText("0:00");
+
+        btNextLevelButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = GameActivity.buildIntentForGameActivity(getApplicationContext(),
+                        Game.getInstance().currentNumOfPlayers, false);
+
+                finish();
+                startActivity(intent);
+
+            }
+        });
 
         if (Game.getInstance().currentNumOfPlayers > 1) {
 
@@ -208,6 +225,21 @@ public class GameActivity extends AppCompatActivity {
                     }
                 }
         );
+
+        gameViewModel.getObservableShowNextLevelButton().observe(this, new Observer<Boolean>() {
+                    @Override
+                    public void onChanged(final Boolean visibility) {
+                        if(visibility) {
+                            btNextLevelButton.setVisibility(View.VISIBLE);
+                            tvGameOver.setVisibility(View.GONE);
+                        }
+                        else {
+                            btNextLevelButton.setVisibility(View.GONE);
+                            tvGameOver.setVisibility(View.VISIBLE);
+                        }
+                    }
+                }
+        );
     }
 
     public void startGame() {
@@ -236,8 +268,8 @@ public class GameActivity extends AppCompatActivity {
                     gameViewModel.open(index, easyFlipView);
                 }
             });
-            listEasyFlipView.add(layout);
 
+            listEasyFlipView.add(layout);
         }
 
         List<Integer> viewsIds = Game.getInstance().getViewIds();

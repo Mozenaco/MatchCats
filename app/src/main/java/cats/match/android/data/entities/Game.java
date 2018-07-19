@@ -52,9 +52,12 @@ public class Game {
         currentPlayerOneName = "";
         currentPlayerTwoScore = 0;
         currentPlayerTwoName = "";
-        currentImagesMatched = 0;
         currentTime = 0;
         gameMode = GameMode.EASY;
+    }
+
+    public void resetCurrentImagesMatched(){
+        currentImagesMatched = 0;
     }
 
     public void initGame(){
@@ -188,7 +191,16 @@ public class Game {
 
     public void nextLevel(){
 
-        //Select a different gamemodelevel
-        initGame();
+        //Go to a different gamemodelevel
+
+        switch (gameMode){
+            case EASY:
+                gameMode = GameMode.MEDIUM;
+                break;
+
+            case MEDIUM:
+                gameMode = GameMode.HARD;
+                break;
+        }
     }
 }

@@ -9,6 +9,7 @@ import com.wajahatkarim3.easyflipview.EasyFlipView;
 import cats.match.android.data.entities.ActionAfterFlip;
 import cats.match.android.data.entities.Game;
 import cats.match.android.data.entities.HighScore;
+import cats.match.android.data.entities.enums.GameMode;
 import cats.match.android.data.sharedpreferences.PreferenceHelper;
 
 /**
@@ -29,6 +30,7 @@ public class GameViewModel extends ViewModel {
     private MutableLiveData<Integer> playerOneScore = new MutableLiveData<Integer>();
     private MutableLiveData<Integer> playerTwoScore = new MutableLiveData<Integer>();
     private MutableLiveData<Boolean> levelEnded = new MutableLiveData<Boolean>();
+    private MutableLiveData<Boolean> showNextLevelButton = new MutableLiveData<Boolean>();
 
     public GameViewModel(PreferenceHelper preferenceHelper){
         this.preferenceHelper = preferenceHelper;
@@ -87,6 +89,12 @@ public class GameViewModel extends ViewModel {
     public void checkEndGameLevel(){
         if(Game.getInstance().currentImagesMatched == Game.getInstance().numImages){
             levelEnded.postValue(true);
+
+            //Only show the next level button if the game ended is not hard
+            if(Game.getInstance().gameMode != GameMode.HARD)
+                showNextLevelButton.postValue(true);
+
+            Game.getInstance().nextLevel();
         }
     }
 
@@ -119,6 +127,10 @@ public class GameViewModel extends ViewModel {
 
     public MutableLiveData<Boolean> getObservableEndGameLevel() {
         return levelEnded;
+    }
+
+    public MutableLiveData<Boolean> getObservableShowNextLevelButton() {
+        return showNextLevelButton;
     }
 
     public void setTurnToPlayer(int i) {

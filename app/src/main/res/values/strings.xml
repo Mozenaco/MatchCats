@@ -18,4 +18,5 @@
     <string name="double_string">%s %s</string>
     <string name="triple_string">%s %s %s</string>
     <string name="not_possible">It was not possible create the game</string>
+    <string name="next_level">NEXT LEVEL</string>
 </resources>

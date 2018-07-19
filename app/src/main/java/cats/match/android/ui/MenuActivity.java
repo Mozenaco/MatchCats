@@ -132,7 +132,7 @@ public class MenuActivity extends AppCompatActivity {
         Game.getInstance().gameMode = GameMode.EASY;
         checkNumPlayers();
         Game.getInstance().currentNumOfPlayers = numPlayers;
-        startActivity(GameActivity.buildIntentForGameActivity(this, numPlayers));
+        startActivity(GameActivity.buildIntentForGameActivity(this, numPlayers, true));
     }
 
     public void highScores() {
