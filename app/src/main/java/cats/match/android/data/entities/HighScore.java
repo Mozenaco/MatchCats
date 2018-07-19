@@ -30,6 +30,10 @@ public class HighScore implements Comparable{
         return Score;
     }
 
+    public String getScoreAsString(){
+        return String.valueOf(Score);
+    }
+
     public void setScore(int score) {
         Score = score;
     }

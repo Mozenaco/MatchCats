@@ -38,7 +38,8 @@ public class HighScoresAdapter extends RecyclerView.Adapter<HighScoresAdapter.Vi
         HighScore highScore = mValues.get(position);
 
         holder.tvPlayerName.setText(highScore.getName());
-        holder.tvPlayerScore.setText(String.valueOf(highScore.getScore()));
+        holder.tvPlayerScore.setText(highScore.getScoreAsString());
+        //[S]ingle Responsibility - A class should have only one reason to change
 
     }
 

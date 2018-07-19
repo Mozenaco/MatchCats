@@ -79,7 +79,11 @@ public class GameActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.game_activity);
         ButterKnife.bind(this);
+
+        //[D]ependency Inversion Principle - High-level modules should not depend on low-level modules.
+        //Both should depend on abstractions.
         app.builder().preferenceModule(new PreferenceModule(this)).build().inject(this);
+
         gameViewModel = new GameViewModel(mPreferenceHelper);
         mExplosionField = ExplosionField.attach2Window(this);
         numPlayers = getIntent().getIntExtra(EXTRA_NUM_PLAYERS, 1);
